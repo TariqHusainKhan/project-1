@@ -159,16 +159,14 @@ const deleteblog2 = async function (req, res) {
         let deletedtedUser = await blogModel.updateMany({$or:[{category: category  },{tags: tags},{subcategory: subcategory},{isPublished: isPublished}, { authorId: authorId }]}, { $set: { isDeleted: true } }, { new: true });
 
         res.status(201).send({ msg: "done", data: deletedtedUser });
-    }
-    catch(err){
+     }
+       catch(err){
         res.status(500).send({ msg: "Error", error: err.message })
     }
 }
   
 
-
 module.exports.createBlog = createBlog;
-module.exports.getBlogs = getBlogs;
 module.exports.getBlogs = getBlogs;
 module.exports.updateblog = updateblog;
 module.exports.deleteblog = deleteblog;
