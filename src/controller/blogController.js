@@ -48,11 +48,12 @@ List of blogs that have a specific subcategory example of a query url: blogs?fil
 
 
 const getBlogs = async function(req,res){
+try{
     let id = req.query.authorId;
     let category = req.query.category;
     let tag = req.query.tags;
     let subcat = req.query.subcategory;
-    try{
+
         let filterData = await blogModel.find({ isPublished : true , isDeleted : false , $or : [ {authorId : id} , {category : category}, {subcategory : {$in : [subcat]}}, {tags : {$in : [tag]}}]});
 
         if(filterData.length == 0){
@@ -64,7 +65,6 @@ const getBlogs = async function(req,res){
         res.status(500).send({ msg: "Error", error: err.message });
     }
 }
-
 
 
 //API4
